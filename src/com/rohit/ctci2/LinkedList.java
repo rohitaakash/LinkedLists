@@ -133,32 +133,33 @@ public class LinkedList {
 		lPart.setNext(headRPart);
 	}
 
-	public Node sumLists(LinkedList l1, LinkedList l2) {
-		int n1 = 1, i = 0;
-		while (l1.head.getNext() != null) {
-			n1 = n1 * i + l1.head.getData();
-			l1.head = l1.head.getNext();
-			i = i * 10;
+	public LinkedList sumLists(LinkedList l1, LinkedList l2) {
+		
+		Node headL1 = l1.head;
+		Node headL2 = l2.head;
+		
+		int j = 1, n1 = 0;
+		while(headL1 != null) {
+			n1 = n1 + headL1.getData()*j;
+			j = j*10;
+			headL1 = headL1.getNext();
 		}
-
-		int n2 = 1, j = 0;
-		while (l2.head.getNext() != null) {
-			n2 = n2 * j + l2.head.getData();
-			l2.head = l2.head.getNext();
-			j = j * 10;
+		
+		int k = 1, n2 = 0;
+		while(headL2 != null) {
+			n2 = n2 + headL2.getData()*k;
+			k = k*10;
+			headL2 = headL2.getNext();
 		}
-
-		int n = n1 + n2, k = 10;
+		
+		int n = n1 + n2;
 		LinkedList l = new LinkedList();
-
-		while (n != 0) {
-			l.head.setData(n / k);
-			l.head.setNext(null);
-			k = k * 10;
-
+		while(n != 0) {
+			l.append(n%10);
+			n = n/10;
+			
 		}
-
-		return new Node();
+		return l;
 
 	}
 
