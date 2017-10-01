@@ -134,35 +134,93 @@ public class LinkedList {
 	}
 
 	public LinkedList sumLists(LinkedList l1, LinkedList l2) {
-		
+
 		Node headL1 = l1.head;
 		Node headL2 = l2.head;
-		
+
 		int j = 1, n1 = 0;
-		while(headL1 != null) {
-			n1 = n1 + headL1.getData()*j;
-			j = j*10;
+		while (headL1 != null) {
+			n1 = n1 + headL1.getData() * j;
+			j = j * 10;
 			headL1 = headL1.getNext();
 		}
-		
+
 		int k = 1, n2 = 0;
-		while(headL2 != null) {
-			n2 = n2 + headL2.getData()*k;
-			k = k*10;
+		while (headL2 != null) {
+			n2 = n2 + headL2.getData() * k;
+			k = k * 10;
 			headL2 = headL2.getNext();
 		}
-		
+
 		int n = n1 + n2;
 		LinkedList l = new LinkedList();
-		while(n != 0) {
-			l.append(n%10);
-			n = n/10;
-			
+		while (n != 0) {
+			l.append(n % 10);
+			n = n / 10;
+
 		}
 		return l;
-
 	}
 
+	public boolean isPalindrome() {
+		Node current = head;
+		int i=1;
+		Node tail = nthNodeFromEnd(i);
+		while(current != tail) {
+			if(current.getData() != tail.getData()) {
+				return false;
+			}
+			if(current.getNext() == tail) {
+				return true;
+			}
+			current = current.getNext();
+			tail = nthNodeFromEnd(++i);
+		}
+		return true;
+	}
+	
+	public Node intersection(Node n1, Node n2) {
+		Node temp1 = n1;
+		Node temp2 = n2;
+		
+		int l1 = 0, l2 = 0;
+		
+		while(temp1 != null) {
+			l1++;
+			temp1 = temp1.getNext();
+		}
+		
+		while(temp2 != null) {
+			l2++;
+			temp2 = temp2.getNext();
+		}
+		
+		if(temp1 != temp2) {
+			return null;
+		}
+		
+		Node temp3 = n1, temp4 = n2;
+		if(l1 > l2) {
+			for (int i = 0; i < l1-l2; i++) {
+				temp3 = temp3.getNext();
+			}
+		}else if(l1 < l2) {
+			for (int i = 0; i < l2-l1; i++) {
+				temp4 = temp4.getNext();
+			}
+		}
+		
+		while(temp3 != null) {
+			if(temp3 == temp4) {
+				return temp3;
+			}
+			temp3 = temp3.getNext();
+			temp4 = temp4.getNext();
+		}
+		return null;
+	}
+	
+	
 	public Node nthNodeFromEnd(int n) {
 		Node current = head;
 		Node temp = head;
@@ -180,15 +238,6 @@ public class LinkedList {
 
 		return temp;
 	}
-
-	/*
-	 * Brute-Force public Node checkCircular() { Node current = head; Node loop =
-	 * head;
-	 * 
-	 * while(current != null) { loop = current; while(loop != null) {
-	 * if(loop.getNext() == current) { return loop; } loop = loop.getNext(); }
-	 * current = current.getNext(); } return null; }
-	 */
 
 	public Node checkCircular() {
 		HashMap<Node, Integer> unique = new HashMap<>();

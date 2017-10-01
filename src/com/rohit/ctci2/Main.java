@@ -33,6 +33,10 @@ public class Main {
 		l1.partitionByValue(63);
 		l1.listToString();
 		
+		Node n = l1.nthNodeFromEnd(1);
+		System.out.println(n.getData());
+		
+		
 		LinkedList l2 = new LinkedList();
 		l2.append(7);
 		l2.append(1);
@@ -47,6 +51,17 @@ public class Main {
 		
 		LinkedList l = l2.sumLists(l2, l3);
 		l.listToString();
+		
+		LinkedList l4 = new LinkedList();
+		l4.append(0);
+		l4.append(1);
+		l4.append(0);
+		l4.append(0);
+		l4.append(1);
+		l4.append(0);
+		l4.listToString();
+		
+		System.out.println(l4.isPalindrome());
 	}
 
 }
