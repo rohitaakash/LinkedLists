@@ -162,15 +162,43 @@ public class LinkedList {
 		return l;
 	}
 
+	public Node sumLists(Node n1, Node n2, int carry) {
+
+		if (n1 == null && n2 == null && carry == 0) {
+			return null;
+		}
+
+		Node result = new Node();
+
+		int value = carry;
+		if (n1 != null) {
+			value += n1.getData();
+		}
+
+		if (n2 != null) {
+			value = n2.getData();
+		}
+
+		if (n1 != null || n2 != null) {
+
+			Node nextNode = sumLists((n1 == null) ? null : n1.getNext(), (n2 == null) ? null : n2.getNext(),
+					(value >= 10) ? 1 : 0);
+			result.setNext(nextNode);
+
+		}
+		return result;
+
+	}
+
 	public boolean isPalindrome() {
 		Node current = head;
-		int i=1;
+		int i = 1;
 		Node tail = nthNodeFromEnd(i);
-		while(current != tail) {
-			if(current.getData() != tail.getData()) {
+		while (current != tail) {
+			if (current.getData() != tail.getData()) {
 				return false;
 			}
-			if(current.getNext() == tail) {
+			if (current.getNext() == tail) {
 				return true;
 			}
 			current = current.getNext();
@@ -178,40 +206,36 @@ public class LinkedList {
 		}
 		return true;
 	}
-	
+
 	public Node intersection(Node n1, Node n2) {
 		Node temp1 = n1;
 		Node temp2 = n2;
-		
+
 		int l1 = 0, l2 = 0;
-		
-		while(temp1 != null) {
+
+		while (temp1 != null) {
 			l1++;
 			temp1 = temp1.getNext();
 		}
-		
-		while(temp2 != null) {
+
+		while (temp2 != null) {
 			l2++;
 			temp2 = temp2.getNext();
 		}
-		
-		if(temp1 != temp2) {
-			return null;
-		}
-		
+
 		Node temp3 = n1, temp4 = n2;
-		if(l1 > l2) {
-			for (int i = 0; i < l1-l2; i++) {
+		if (l1 > l2) {
+			for (int i = 0; i < l1 - l2; i++) {
 				temp3 = temp3.getNext();
 			}
-		}else if(l1 < l2) {
-			for (int i = 0; i < l2-l1; i++) {
+		} else if (l1 < l2) {
+			for (int i = 0; i < l2 - l1; i++) {
 				temp4 = temp4.getNext();
 			}
 		}
-		
-		while(temp3 != null) {
-			if(temp3 == temp4) {
+
+		while (temp3 != null) {
+			if (temp3 == temp4) {
 				return temp3;
 			}
 			temp3 = temp3.getNext();
@@ -219,8 +243,7 @@ public class LinkedList {
 		}
 		return null;
 	}
-	
-	
+
 	public Node nthNodeFromEnd(int n) {
 		Node current = head;
 		Node temp = head;
